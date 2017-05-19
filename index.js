@@ -15,15 +15,20 @@ let Store = {
     removeItem() {},
     clear() {}
 }
-config.forEach((item, index) => {
-    console.log(`Starting ${item.appName}...`)
-    setTimeout(() => {
-        exec(item.command, (error, stdout, stderr) => {
-            if (error) {
-                console.error(`exec error: ${error}`)
-                return
-            }
-            console.log(`Finished ${item.appName}`)
-        })
-    }, item.delay)
-})
+let ExecuteCommand = function() {
+    config.forEach((item, index) => {
+        console.log(`Starting ${item.appName}...`)
+        setTimeout(() => {
+            exec(item.command, (error, stdout, stderr) => {
+                if (error) {
+                    console.error(`exec error: ${error}`)
+                    return
+                }
+                console.log(`Finished ${item.appName}`)
+            })
+        }, item.delay)
+    })
+}
+
+exports.ExecuteCommand = ExecuteCommand
+exports.Store = Store
